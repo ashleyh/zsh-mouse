@@ -410,7 +410,6 @@ if [[ $TERM = *[xeEk]term* ||
     fi 
   else
     # xterm-like mouse support
-    zmodload -i zsh/parameter # needed for $functions
 
     zle-update-mouse-driver() {
       if [[ -n $WIDGET ]]; then
@@ -422,14 +421,14 @@ if [[ $TERM = *[xeEk]term* ||
       fi
     }
 
-    if [[ $functions[precmd] != *ZLE_USE_MOUSE* ]]; then
-      functions[precmd]+='
-      [[ -n $ZLE_USE_MOUSE ]] && print -n '\''\e[?1000h'\'
-    fi
-    if [[ $functions[preexec] != *ZLE_USE_MOUSE* ]]; then
-      functions[preexec]+='
-      [[ -n $ZLE_USE_MOUSE ]] && print -n '\''\e[?1000l'\'
-    fi
+    zle-mouse-precmd() {
+      [[ -n $ZLE_USE_MOUSE ]] && print -n '\e[?1000h'
+    }
+    zle-mouse-preexec() {
+      [[ -n $ZLE_USE_MOUSE ]] && print -n '\e[?1000l'
+    }
+    add-zsh-hook precmd zle-mouse-precmd
+    add-zsh-hook preexec zle-mouse-precmd
 
     bindkey -M emacs '\e[M' handle-xterm-mouse-event
     bindkey -M viins '\e[M' handle-xterm-mouse-event

@@ -449,33 +449,24 @@ if [[ $TERM = *[xeEk]term* ||
 
 fi
 
-zle-toggle-mouse() {
-  # If no prefix, toggle state.
-  # If positive prefix, turn on.
-  # If zero or negative prefix, turn off.
-
-  # Allow this to be used as a normal function, too.
-  if [[ -n $1 ]]; then
-    local PREFIX=$1
-  fi
-  if (( $+PREFIX )); then
-    if (( PREFIX > 0 )); then
-      ZLE_USE_MOUSE=1
-    else
-      ZLE_USE_MOUSE=
-    fi
-  else
-    if [[ -n $ZLE_USE_MOUSE ]]; then
-      ZLE_USE_MOUSE=
-    else
-      ZLE_USE_MOUSE=1
-    fi
-  fi
+zle-mouse-toggle() {
   if [[ -n $ZLE_USE_MOUSE ]]; then
-    zle -M 'mouse is enabled'
+    ZLE_USE_MOUSE=
   else
-    zle -M 'mouse is disabled'
+    ZLE_USE_MOUSE=1
   fi
   zle-update-mouse-driver
 }
-zle -N zle-toggle-mouse
+zle -N zle-mouse-toggle
+
+zle-mouse-enable() {
+  ZLE_USE_MOUSE=1
+  zle-update-mouse-driver
+}
+zle -N zle-mouse-enable
+
+zle-mouse-disable() {
+  ZLE_USE_MOUSE=
+  zle-update-mouse-driver
+}
+zle -N zle-mouse-disable

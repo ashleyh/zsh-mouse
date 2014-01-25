@@ -471,6 +471,11 @@ zle-toggle-mouse() {
       ZLE_USE_MOUSE=1
     fi
   fi
+  if [[ -n $ZLE_USE_MOUSE ]]; then
+    zle -M 'mouse is enabled'
+  else
+    zle -M 'mouse is disabled'
+  fi
   zle-update-mouse-driver
 }
 zle -N zle-toggle-mouse

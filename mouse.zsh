@@ -412,13 +412,11 @@ if [[ $TERM = *[xeEk]term* ||
     # xterm-like mouse support
 
     zle-update-mouse-driver() {
-      if [[ -n $WIDGET ]]; then
 	if [[ -n $ZLE_USE_MOUSE ]]; then
 	  print -n '\e[?1000h'
 	else
 	  print -n '\e[?1000l'
 	fi
-      fi
     }
 
     zle-mouse-precmd() {

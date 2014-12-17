@@ -70,12 +70,12 @@
 #
 # add to your ~/.zshrc:
 #  . /path/to/this-file
-#  zle-toggle-mouse
+#  zle-mouse-toggle
 #
 # and if you want to be able to toggle on/off the mouse support:
-# bindkey -M emacs '\em' zle-toggle-mouse
+# bindkey -M emacs '\em' zle-mouse-toggle
 # # <Esc>m to toggle the mouse in emacs mode
-# bindkey -M vicmd M zle-toggle-mouse
+# bindkey -M vicmd M zle-mouse-toggle
 # # M for vi (cmd) mode
 #
 # clicking on the button 1:
